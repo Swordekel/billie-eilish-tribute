@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Counter } from "./Counter";
 
 export function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,12 +64,16 @@ export function About() {
         {/* Stats counter, could animate based on same scroll trigger */}
         <div className="mt-24 flex flex-wrap gap-12 border-t border-white/10 pt-12">
           {[
-            { label: "Grammys", value: "9" },
-            { label: "Oscars", value: "2" },
-            { label: "Billion Streams", value: "50+" },
+            { to: 9, suffix: "", label: "Grammys" },
+            { to: 2, suffix: "", label: "Oscars" },
+            { to: 50, suffix: "+", label: "Billion Streams" },
           ].map((stat, i) => (
             <div key={i} className="flex flex-col gap-2">
-              <span className="font-anton text-4xl text-[#B6FF1E] md:text-6xl">{stat.value}</span>
+              <Counter
+                to={stat.to}
+                suffix={stat.suffix}
+                className="font-anton text-4xl text-[#B6FF1E] md:text-6xl"
+              />
               <span className="font-space-grotesk text-sm uppercase tracking-widest text-[#777]">{stat.label}</span>
             </div>
           ))}

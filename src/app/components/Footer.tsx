@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 // Portfolio credit — set CREATOR_URL to your site (leave "" for no link).
 const CREATOR = "Swordekel";
@@ -19,7 +20,7 @@ export function Footer() {
       {/* Newsletter CTA */}
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="font-anton text-6xl uppercase tracking-tighter text-[#F4F4F4] md:text-9xl">
-          Stay <span className="text-[#B6FF1E]">Close</span>
+          <AnimatedHeading parts={[{ text: "Stay " }, { text: "Close", accent: true }]} />
         </h2>
         <form 
           className="mx-auto mt-12 flex max-w-lg items-center border-b-2 border-white/20 pb-4 transition-colors focus-within:border-[#B6FF1E]"

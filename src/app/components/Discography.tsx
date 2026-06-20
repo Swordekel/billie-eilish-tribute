@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView } from "motion/react";
 import { Play } from "lucide-react";
+import { ScrambleText } from "./ScrambleText";
 
 const search = (q: string) =>
   `https://open.spotify.com/search/${encodeURIComponent("Billie Eilish " + q)}`;
@@ -57,7 +58,7 @@ export function Discography() {
             4 records · 2017 — 2024
           </p>
           <h2 className="font-anton text-4xl uppercase tracking-wider text-[#F4F4F4] md:text-6xl">
-            Discography
+            <ScrambleText text="DISCOGRAPHY" />
           </h2>
         </div>
 

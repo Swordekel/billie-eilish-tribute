@@ -12,6 +12,7 @@ import { Discography } from "./components/Discography";
 import { Featured } from "./components/Featured";
 import { Tour } from "./components/Tour";
 import { Gallery } from "./components/Gallery";
+import { Marquee } from "./components/Marquee";
 import { Footer } from "./components/Footer";
 
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
@@ -82,6 +83,7 @@ export default function App() {
             <About />
             <Discography />
             <Featured />
+            <Marquee />
             <Tour />
             <Gallery />
           </main>

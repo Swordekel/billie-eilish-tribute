@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 const dates = [
   { date: "SEP 29", city: "Quebec, QC", venue: "Videotron Centre" },
@@ -79,7 +80,7 @@ export function Tour() {
     >
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-20 font-anton text-5xl uppercase tracking-wider text-[#F4F4F4] md:text-8xl">
-          Tour <span className="text-[#B6FF1E]">Dates</span>
+          <AnimatedHeading parts={[{ text: "Tour " }, { text: "Dates", accent: true }]} />
         </h2>
 
         <ul ref={listRef} className="flex flex-col border-t border-white/10">
