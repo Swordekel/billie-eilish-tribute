@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "motion/react";
 
 // Real, CC-licensed Billie Eilish photos (credited in ATTRIBUTIONS.md).
 const images = [
@@ -20,54 +18,47 @@ export function Gallery() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const elements = containerRef.current.querySelectorAll('.gallery-item');
-    
-    elements.forEach((el, index) => {
-      gsap.fromTo(
+    const elements = containerRef.current.querySelectorAll(".gallery-item");
+    const triggers: ScrollTrigger[] = [];
+
+    elements.forEach((el) => {
+      const tween = gsap.fromTo(
         el,
         { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", opacity: 0 },
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           opacity: 1,
-          duration: 1.2,
+          duration: 1.1,
           ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
+          scrollTrigger: { trigger: el, start: "top 88%" },
         }
       );
+      if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      // Only kill this section's triggers (leave the page pins intact)
+      triggers.forEach((t) => t.kill());
     };
   }, []);
 
   return (
     <section id="gallery" className="w-full bg-[#0C0C0C] py-32 px-6 md:px-12">
-      <div className="mx-auto max-w-[1400px]" ref={containerRef}>
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1024: 3 }}>
-          <Masonry gutter="2rem">
-            {images.map((src, i) => (
-              <div key={i} className="gallery-item overflow-hidden bg-[#070707]">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-                  className="h-full w-full"
-                >
-                  <img
-                    src={src}
-                    alt={`Billie Eilish ${i + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="block w-full mix-blend-luminosity transition-all duration-500 hover:mix-blend-normal"
-                  />
-                </motion.div>
-              </div>
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
+      <div ref={containerRef} className="mx-auto max-w-[1400px] columns-1 gap-8 md:columns-2 lg:columns-3">
+        {images.map((src, i) => (
+          <div
+            key={i}
+            className="gallery-item group mb-8 overflow-hidden break-inside-avoid bg-[#070707]"
+            data-cursor="hover"
+          >
+            <img
+              src={src}
+              alt={`Billie Eilish ${i + 1}`}
+              decoding="async"
+              className="block w-full mix-blend-luminosity transition-all duration-700 ease-out group-hover:scale-[1.04] group-hover:mix-blend-normal"
+            />
+          </div>
+        ))}
       </div>
     </section>
   );

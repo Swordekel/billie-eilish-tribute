@@ -51,7 +51,24 @@ export default function App() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
+    // Recalculate pin / trigger positions once images finish loading, so the
+    // pinned sections reserve the right amount of scroll and the page doesn't
+    // get stuck/clamped in later sections (e.g. the gallery).
+    const refresh = () => ScrollTrigger.refresh();
+    refresh();
+    window.addEventListener("load", refresh);
+    const imgs = Array.from(document.querySelectorAll("img"));
+    imgs.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", refresh, { once: true });
+        img.addEventListener("error", refresh, { once: true });
+      }
+    });
+    const refreshTimer = window.setTimeout(refresh, 1200);
+
     return () => {
+      window.removeEventListener("load", refresh);
+      window.clearTimeout(refreshTimer);
       lenis.destroy();
       gsap.ticker.remove(raf);
       delete (window as unknown as { __lenis?: Lenis }).__lenis;
