@@ -3,7 +3,6 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Preloader } from "./components/Preloader";
-import { Cursor } from "./components/Cursor";
 import { Navigation } from "./components/Navigation";
 import { NoiseOverlay } from "./components/NoiseOverlay";
 import { Hero } from "./components/Hero";
@@ -84,7 +83,6 @@ export default function App() {
         {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
       </AnimatePresence>
       <NoiseOverlay />
-      <Cursor />
 
       {/* Scroll progress */}
       <motion.div
